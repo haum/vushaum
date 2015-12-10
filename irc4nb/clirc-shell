@@ -1,0 +1,32 @@
+#!/bin/sh
+
+nick=botsebvallee
+channel=lagnole
+password="password"
+msg="!spaceapi state toggle"
+
+echo "NICK $nick"
+echo "USER $nick +i * :$0"
+
+while read MESSAGE
+do
+  case "$MESSAGE" in
+    PING*)
+      echo "PONG${MESSAGE#PING}"
+      ;;
+    *registered*)
+      echo "PRIVMSG NickServ :identify $password"
+      ;;
+    *identified*)
+      echo "JOIN #$channel"
+      ;;
+    *+v*)
+      echo "PRIVMSG #$channel :${msg}"
+      echo "QUIT"
+      ;;
+    *)
+      ;;
+  esac
+done
+
+exit 1
