@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# show up in blue to inform we're procesing stuff
+echo 0 > /sys/class/leds/NB4-SER-r0\:red\:service/brightness
+echo 0 > /sys/class/leds/NB4-SER-r0\:green\:service/brightness
+echo 1 > /sys/class/leds/NB4-SER-r0\:blue\:service/brightness
+
+api_key='PUT_YOUR_KEY_HERE'
+url='https://spaceapi.net/new/space/haum/sensor/set'
+status_file=/tmp/spaceapi.status
+curl_flags="-s -S -k"
+
+close () {
+  curl $curl_flags --data-urlencode sensors='{"state":{"open":false}}' --data key=$api_key $url
+}
+
+open () {
+  curl $curl_flags --data-urlencode sensors='{"state":{"open":true}}' --data key=$api_key $url
+}
+
+status=$(cat $status_file 2>/dev/null)
+ 
+if [ 'opened' = "$status" ]; then
+  close
+else
+  open
+fi
+
+/root/bin/spaceapi-check

@@ -1,0 +1,16 @@
+URL='https://spaceapi.net/new/space/haum/status/json'
+STATUS_FILE=/tmp/spaceapi.status
+state=$(curl -S -s -k $URL | sed -e 's/.*{"open":\(\w\+\)}.*/\1/g')
+
+if [ "$state" == "true" ]; then
+	echo 0 > /sys/class/leds/NB4-SER-r0\:red\:service/brightness	
+	echo 0 > /sys/class/leds/NB4-SER-r0\:blue\:service/brightness	
+	echo 1 > /sys/class/leds/NB4-SER-r0\:green\:service/brightness	
+	echo opened > $STATUS_FILE
+else
+	echo 0 > /sys/class/leds/NB4-SER-r0\:green\:service/brightness	
+	echo 0 > /sys/class/leds/NB4-SER-r0\:blue\:service/brightness	
+	echo 1 > /sys/class/leds/NB4-SER-r0\:red\:service/brightness	
+	echo closed > $STATUS_FILE
+fi
+
