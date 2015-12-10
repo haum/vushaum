@@ -1,8 +1,8 @@
 #!/bin/sh
 
-nick=botsebvallee
-channel=lagnole
-password="password"
+nick=haumbotox
+channel=haum
+password="PUT_YOUR_NICKSERV_PASS_HERE"
 msg="!spaceapi state toggle"
 
 echo "NICK $nick"
@@ -20,7 +20,7 @@ do
     *identified*)
       echo "JOIN #$channel"
       ;;
-    *+v*)
+    *"Mode #$channel [+v $nick] by ChanServ"*)
       echo "PRIVMSG #$channel :${msg}"
       echo "QUIT"
       ;;
