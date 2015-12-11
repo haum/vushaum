@@ -20,7 +20,7 @@ do
     *identified*)
       echo "JOIN #$channel"
       ;;
-    *"Mode #$channel [+v $nick] by ChanServ"*)
+    *"MODE #$channel +v $nick"*)
       echo "PRIVMSG #$channel :${msg}"
       echo "QUIT"
       ;;
