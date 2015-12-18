@@ -1,0 +1,10 @@
+#!/bin/sh
+
+SERVER=irc.freenode.net
+PORT=7000
+SSL=1
+
+nick="haumbotox"
+channel=haum
+password="PUT YOUR BOT'S PASSWORD HERE"
+msg="!spaceapi state toggle"

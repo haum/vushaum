@@ -4,12 +4,18 @@
 SCRIPT=$(readlink -f "$0")
 # Absolute path this script is in, thus /home/user/bin
 SCRIPTPATH=$(dirname "$SCRIPT")
-
+source ./clirc-config
 
 SUBSCRIPT=$SCRIPTPATH/clirc-shell
-SERVER=irc.freenode.net
-PORT=6667
+if [ $# -gt 0 ]
+	then
+	SUBSCRIPT="$SUBSCRIPT $*"
+fi
 
+TYPE=TCP4
+if [ "$SSL" -eq "1" ]
+	then
+	TYPE=OPENSSL
+fi
 
-socat -v TCP4:$SERVER:$PORT EXEC:$SUBSCRIPT
-
+socat -v $TYPE:$SERVER:$PORT EXEC:"$SUBSCRIPT"
