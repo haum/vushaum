@@ -5,9 +5,11 @@ SCRIPT=$(readlink -f "$0")
 # Absolute path this script is in, thus /home/user/bin
 SCRIPTPATH=$(dirname "$SCRIPT")
 
-subscript=$SCRIPTPATH/clirc-shell
-server=irc.freenode.net
-port=6667
 
-socat -v TCP4:$server:$port EXEC:$subscript
+SUBSCRIPT=$SCRIPTPATH/clirc-shell
+SERVER=irc.freenode.net
+PORT=6667
+
+
+socat -v TCP4:$SERVER:$PORT EXEC:$SUBSCRIPT
 
