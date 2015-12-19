@@ -1,13 +1,24 @@
 #!/bin/sh
-source ./clirc-config
+# Absolute path to this script, e.g. /home/user/bin/foo.sh
+SCRIPT=$(readlink -f "$0")
+# Absolute path this script is in, thus /home/user/bin
+SCRIPTPATH=$(dirname "$SCRIPT")
+. $SCRIPTPATH/clirc-config
 
 if [ $# -gt 0 ]
 	then
-	msg=$*
+	msg="$*"
 fi
 
 echo "NICK $nick"
 echo "USER $nick +i * :$0"
+
+if [ "$WAIT_FOR_NS_BEFORE_JOIN" -eq "0" ]
+	then
+	sleep 1 # crappy...
+ 	echo "JOIN #$channel"
+fi
+
 
 while read MESSAGE
 do
