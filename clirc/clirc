@@ -4,12 +4,16 @@
 SCRIPT=$(readlink -f "$0")
 # Absolute path this script is in, thus /home/user/bin
 SCRIPTPATH=$(dirname "$SCRIPT")
-source ./clirc-config
+. $SCRIPTPATH/clirc-config
 
 SUBSCRIPT=$SCRIPTPATH/clirc-shell
 if [ $# -gt 0 ]
 	then
-	SUBSCRIPT="$SUBSCRIPT $*"
+	SUBSCRIPT="$SUBSCRIPT \"$*\""
+	echo $*
+	echo "$*"
+	echo $SUBSCRIPT
+	echo "$SUBSCRIPT"
 fi
 
 TYPE=TCP4
